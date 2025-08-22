@@ -1,6 +1,8 @@
 
 export default {
   async fetch(request, env, ctx) {
-    return new Response('커밋 빌드 테스트');
+    await env.KV_APP.put("hello", "world");
+    const v = await env.KV_APP.get("hello");
+    return new Response(v);
   }
 };
