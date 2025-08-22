@@ -1,0 +1,20 @@
+name = "chatlog-detect-cron-1"
+main = "./src/index.js"
+node_compat = true
+compatibility_date = "2024-02-15"
+
+[triggers]
+# Schedule cron triggers:
+# - At every 3rd minute
+# - At 3PM on first day of the month
+# - At 11:59PM on the last weekday of the month
+crons = ["* * * * *"]
+
+[[d1_databases]]
+binding = "MAIN_DB" # available in your Worker on env.DB
+database_name = "sidetalk_main_db"
+database_id = "9929b565-215c-4aa5-bbea-1dc0a2eb9cba"
+
+[[hyperdrive]]
+binding = "NEON_DB"
+id = "9bf520a54ac74313a30de37064aeed6d"
