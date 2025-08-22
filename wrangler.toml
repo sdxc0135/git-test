@@ -2,26 +2,3 @@ name = "git-test1"
 main = "./src/index.js"
 compatibility_date = "2025-08-22"
 compatibility_flags = ["nodejs_compat"]
-
-[env.dev]
-# 개발 도메인(또는 workers.dev만 사용 가능)
-routes = [
-  { pattern = "api-dev.example.com/*", zone_name = "example.com" }
-]
-vars = { API_BASE_URL = "https://api-dev.example.com" }
-
-# 개발 전용 리소스 바인딩
-[[env.dev.kv_namespaces]]
-binding = "KV_APP"
-id = "7062350b6acc455989a2fcf37e184ea5"
-
-# --- 운영 환경 ---
-[env.prod]
-routes = [
-  { pattern = "api.example.com/*", zone_name = "example.com" }
-]
-vars = { API_BASE_URL = "https://api.example.com" }
-
-[[env.prod.kv_namespaces]]
-binding = "KV_APP"
-id = "8552306636ef4646bc055fc3bdfbb4a2"
