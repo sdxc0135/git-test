@@ -1,0 +1,33 @@
+name: Deploy Worker
+
+on:
+  push:
+    branches: [ dev ]     # DEV 자동 배포
+    tags: [ 'v*' ]        # 태그가 푸시되면 PROD 배포
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: npm ci && npm run build
+
+      - name: Deploy DEV
+        if: startsWith(github.ref, 'refs/heads/dev')
+        uses: cloudflare/wrangler-action@v3
+        with:
+          command: deploy --env dev
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+
+      - name: Deploy PROD
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: cloudflare/wrangler-action@v3
+        with:
+          command: deploy --env prod
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
