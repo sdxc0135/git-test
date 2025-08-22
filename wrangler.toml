@@ -1,4 +1,4 @@
 name = "git-test1"
 main = "./src/index.js"
-node_compat = true
-compatibility_date = "2024-02-15"
+compatibility_date = "2025-08-22"
+compatibility_flags = ["nodejs_compat"]
